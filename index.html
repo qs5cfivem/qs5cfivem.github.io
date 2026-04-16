@@ -1,16 +1,433 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-    <title>Portfolio DX Modding</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DX Modding | Expert FiveM Scripting & Optimisation</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Portfolio de DX Modding, développeur expert en scripts FiveM (ESX/QB-Core) et optimisation de serveurs. Solutions sur mesure et coaching.">
+    
+    <!-- Google Fonts: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- DESIGN SYSTEM & VARIABLES --- */
+        :root {
+            --primary: #a855f7; /* Electric Violet */
+            --primary-glow: rgba(168, 85, 247, 0.4);
+            --bg-dark: #0a0a0c;
+            --bg-card: rgba(255, 255, 255, 0.03);
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* --- RESET & BASE --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Ambient Background Glows */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -10%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: var(--primary-glow);
+            filter: blur(120px);
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        /* --- UTILITIES --- */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(to right, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            box-shadow: 0 4px 15px var(--primary-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--primary);
+        }
+
+        .btn-outline {
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            background: var(--bg-card);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary);
+            background: rgba(168, 85, 247, 0.1);
+        }
+
+        /* --- HEADER / HERO --- */
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: radial-gradient(circle at center, rgba(168, 85, 247, 0.05) 0%, transparent 70%);
+        }
+
+        .logo-container h1 {
+            font-size: 5rem;
+            font-weight: 900;
+            letter-spacing: -2px;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            color: #fff;
+            text-shadow: 0 0 20px var(--primary-glow);
+            animation: glowPulse 3s infinite ease-in-out;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { text-shadow: 0 0 20px var(--primary-glow); }
+            50% { text-shadow: 0 0 40px var(--primary); }
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            color: var(--text-dim);
+            font-weight: 300;
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+
+        .subtitle span {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* --- PROJECTS SECTION --- */
+        #projects {
+            padding: 100px 0;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(168, 85, 247, 0.03));
+            pointer-events: none;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .project-tag {
+            background: rgba(168, 85, 247, 0.1);
+            color: var(--primary);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .project-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+        }
+
+        .project-card p {
+            color: var(--text-dim);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        /* --- PRICING SECTION --- */
+        #pricing {
+            padding: 100px 0;
+            background: rgba(168, 85, 247, 0.02);
+        }
+
+        .pricing-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .price-item {
+            flex: 1;
+            min-width: 280px;
+            max-width: 350px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 40px;
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .price-item.popular {
+            border-color: var(--primary);
+            transform: scale(1.05);
+            background: rgba(168, 85, 247, 0.05);
+        }
+
+        .price-header h4 { font-size: 1.2rem; margin-bottom: 10px; }
+        .price-amount { font-size: 2.5rem; font-weight: 800; margin-bottom: 20px; color: var(--primary); }
+        .price-features { list-style: none; margin-bottom: 30px; text-align: left; }
+        .price-features li { margin-bottom: 12px; color: var(--text-dim); font-size: 0.9rem; display: flex; align-items: center; gap: 10px;}
+        .price-features li i { color: var(--primary); }
+
+        /* --- CONTACT SECTION --- */
+        #contact {
+            padding: 120px 0;
+            text-align: center;
+        }
+
+        .contact-box {
+            background: linear-gradient(to bottom right, var(--bg-card), rgba(168, 85, 247, 0.05));
+            border: 1px solid var(--border);
+            padding: 60px;
+            border-radius: 24px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .social-icon {
+            font-size: 1.5rem;
+            color: var(--text-dim);
+            transition: var(--transition);
+        }
+
+        .social-icon:hover {
+            color: var(--primary);
+            transform: scale(1.2);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            color: var(--text-dim);
+            font-size: 0.85rem;
+        }
+
+        /* --- MOBILE RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .logo-container h1 { font-size: 3rem; }
+            .subtitle { font-size: 1.1rem; }
+            .section-title { font-size: 2rem; }
+            .price-item.popular { transform: scale(1); }
+            .contact-box { padding: 30px; }
+        }
+    </style>
 </head>
 <body>
-    <h1>Bienvenue sur le portfolio de DX Modding</h1>
-    <p>Développeur FiveM spécialisé en scripts optimisés.</p>
-    
-    <h2>Mes Projets</h2>
-    <ul>
-        <li>Script de Drogue (ESX/QB) - Prix : [Indiquer montant] argent</li>
-        <li>Menu Admin Custom</li>
-    </ul>
+
+    <!-- Header / Nav -->
+    <header>
+        <div class="container logo-container">
+            <h1 id="brand">DX Modding</h1>
+            <p class="subtitle">Expert en <span>Scripting FiveM</span> & Optimisation Haute Performance.</p>
+            <div style="display: flex; gap: 15px;">
+                <a href="#projects" class="btn btn-primary">Découvrir mes scripts</a>
+                <a href="#contact" class="btn btn-outline">Me contacter</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title">Mes Créations</h2>
+            <div class="projects-grid">
+                
+                <!-- Script 1 -->
+                <div class="project-card">
+                    <span class="project-tag">QB-CORE / ESX</span>
+                    <h3>Anticheat Pro System</h3>
+                    <p>Une protection avancée contre les injections de scripts et les menus de triche, optimisée pour ne pas impacter les FPS.</p>
+                    <a href="#" class="btn btn-outline" style="width: 100%; justify-content: center;">
+                        <i class="fa-solid fa-play"></i> Voir la démo
+                    </a>
+                </div>
+
+                <!-- Script 2 -->
+                <div class="project-card">
+                    <span class="project-tag">STANDALONE</span>
+                    <h3>Orion UI Framework</h3>
+                    <p>Une bibliothèque NUI ultra-moderne pour tous vos menus serveurs. Fluide, responsive et entièrement personnalisable.</p>
+                    <a href="#" class="btn btn-outline" style="width: 100%; justify-content: center;">
+                        <i class="fa-solid fa-play"></i> Voir la démo
+                    </a>
+                </div>
+
+                <!-- Script 3 -->
+                <div class="project-card">
+                    <span class="project-tag">ESX ONLY</span>
+                    <h3>Job Center V2</h3>
+                    <p>Gestionnaire de métiers dynamique avec entretiens PNJ et intégration de systèmes de progression complexes.</p>
+                    <a href="#" class="btn btn-outline" style="width: 100%; justify-content: center;">
+                        <i class="fa-solid fa-play"></i> Voir la démo
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing">
+        <div class="container">
+            <h2 class="section-title">Services & Tarifs</h2>
+            <div class="pricing-list">
+
+                <!-- Service 1 -->
+                <div class="price-item">
+                    <div class="price-header">
+                        <h4>Debug & Fix</h4>
+                        <div class="price-amount">30€<span>/h</span></div>
+                    </div>
+                    <ul class="price-features">
+                        <li><i class="fa-solid fa-check"></i> Correction d'erreurs console</li>
+                        <li><i class="fa-solid fa-check"></i> Optimisation du code</li>
+                        <li><i class="fa-solid fa-check"></i> Support Prioritaire</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-outline" style="width: 100%; justify-content: center;">Commander</a>
+                </div>
+
+                <!-- Service 2 (Mise en avant) -->
+                <div class="price-item popular">
+                    <div class="price-header">
+                        <h4>Script sur mesure</h4>
+                        <div class="price-amount">À partir de 80€</div>
+                    </div>
+                    <ul class="price-features">
+                        <li><i class="fa-solid fa-check"></i> Création de A à Z</li>
+                        <li><i class="fa-solid fa-check"></i> Design NUI Inclus</li>
+                        <li><i class="fa-solid fa-check"></i> Installation sur votre serveur</li>
+                        <li><i class="fa-solid fa-check"></i> Support 30 jours gratuit</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary" style="width: 100%; justify-content: center;">Démarrer un projet</a>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="price-item">
+                    <div class="price-header">
+                        <h4>Installation Serveur</h4>
+                        <div class="price-amount">150€</div>
+                    </div>
+                    <ul class="price-features">
+                        <li><i class="fa-solid fa-check"></i> Config Linux / Windows</li>
+                        <li><i class="fa-solid fa-check"></i> Setup Base de données</li>
+                        <li><i class="fa-solid fa-check"></i> Pack scripts essentiels</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-outline" style="width: 100%; justify-content: center;">Commander</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="contact-box">
+                <h2 style="font-size: 2.5rem; margin-bottom: 10px;">Prêt à booster votre serveur ?</h2>
+                <p style="color: var(--text-dim); margin-bottom: 40px;">Parlons de votre projet sur Discord ou jetez un œil à mon code sur GitHub.</p>
+                
+                <a href="https://discord.gg/votrelien" target="_blank" class="btn btn-primary" style="padding: 15px 40px; font-size: 1.1rem;">
+                    <i class="fa-brands fa-discord"></i> Rejoindre mon Discord
+                </a>
+
+                <div class="social-links">
+                    <a href="https://github.com/votrepseudo" target="_blank" class="social-icon"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" class="social-icon"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fa-solid fa-envelope"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 DX Modding. All rights reserved. Made for FiveM Community.</p>
+        </div>
+    </footer>
+
 </body>
 </html>
